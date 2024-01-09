@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="assets/img/arcade-svgrepo-com.svg" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <title>Simulador de Jogos</title>
+</head>
+<body>
+
+    <div class="title">
+        <h1>Simulador de jogos</h1>
+        <img src="assets/img/game-console-gamepad-svgrepo-com.svg" alt="">
+    </div>
+
+    <div class="container">
+    <div class="game-card" onclick="redirectGame('game1.html')">
+      <img src="assets/img/tetris-game.jpg" alt="Game 1">
+      <p>Tetris</p>
+    </div>
+    <div class="game-card" onclick="redirectGame('game2.html')">
+      <img src="assets/img/tictactoe-game.png" alt="Game 2">
+      <p>Jogo da Velha</p>
+    </div>
+
+    <div class="game-card" onclick="redirectGame('game3.html')">
+        <img src="assets/img/coming.jpg" alt="">
+        <p>Em Breve...</p>
+      </div>
+    <!-- Adicione mais divs para outros jogos, se necessário -->
+  </div>
+  <script src="assets/js/index.js"></script>
+</body>
+</html>
