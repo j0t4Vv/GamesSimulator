@@ -7,15 +7,6 @@ const breakSound = document.createElement("audio");
 const drop = document.createElement("audio");
 let rotatedShape;
 
-bgm.setAttribute("src", "./assets/bgm.mp3");
-bgm.muted = true;
-
-breakSound.setAttribute("src", "./assets/break.mp3");
-breakSound.muted = true;
-
-drop.setAttribute("src", "./assets/drop.mp3");
-drop.muted = true;
-
 // init board
 for (let row = 0; row < BOARD_HEIGHT; row++) {
   board[row] = [];
@@ -171,6 +162,48 @@ function canTetrominoRotate() {
   return true;
 }
 
+
+let score = 0;
+
+function updateScore(rowsCleared) {
+
+  const pointsPerRow = 100;
+  
+  const pointsEarned = rowsCleared * pointsPerRow;
+
+  score += pointsEarned;
+
+  document.getElementById("score").innerText = `Pontuação: ${score}`;
+}
+
+function checkGameOver() {
+  for (let col = 0; col < BOARD_WIDTH; col++) {
+    if (board[0][col] !== 0) {
+      gameOver();
+      return true;
+    }
+  }
+  return false;
+}
+
+let promptDisplayed = false; // Adicione esta linha no escopo global ou onde achar apropriado
+
+function gameOver() {
+  if (promptDisplayed) {
+    return; // Ignora a exibição de prompt se já foi exibido
+  }
+
+  promptDisplayed = true; // Marca que o prompt foi exibido
+
+  const restart = confirm("Game Over! Pontuação final: " + score + "\nDeseja reiniciar o jogo?");
+  if (restart) {
+    location.reload(); // Recarrega a página para reiniciar o jogo
+  } else {
+    window.location.href = "index.html"; // Redireciona para a página inicial do seu simulador de jogos
+  }
+}
+
+
 // Lock the tetromino in place
 function lockTetromino() {
   // Add the tetromino to the board
@@ -187,12 +220,14 @@ function lockTetromino() {
   // Check if any rows need to be cleared
   let rowsCleared = clearRows();
   if (rowsCleared > 0) {
-    // updateScore(rowsCleared);
+    updateScore(rowsCleared)
   }
 
   // Create a new tetromino
   // Current tetromino
   currentTetromino = randomTetromino();
+
+  checkGameOver();
 }
 
 function clearRows() {
@@ -264,6 +299,7 @@ function rotateTetromino() {
   }
 }
 
+
 // Move the tetromino
 function moveTetromino(direction) {
   let row = currentTetromino.row;
@@ -294,6 +330,7 @@ function moveTetromino(direction) {
       drawTetromino();
     } else {
       lockTetromino();
+      
     }
   }
 
@@ -342,3 +379,4 @@ function dropTetromino() {
   }
   lockTetromino();
 }
+
