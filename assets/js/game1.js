@@ -2,9 +2,6 @@
 const BOARD_WIDTH = 10;
 const BOARD_HEIGHT = 20;
 const board = [];
-const bgm = document.createElement("audio");
-const breakSound = document.createElement("audio");
-const drop = document.createElement("audio");
 let rotatedShape;
 
 // init board
@@ -162,13 +159,10 @@ function canTetrominoRotate() {
   return true;
 }
 
-
 let score = 0;
 
 function updateScore(rowsCleared) {
-
   const pointsPerRow = 100;
-  
   const pointsEarned = rowsCleared * pointsPerRow;
 
   score += pointsEarned;
@@ -186,7 +180,7 @@ function checkGameOver() {
   return false;
 }
 
-let promptDisplayed = false; // Adicione esta linha no escopo global ou onde achar apropriado
+let promptDisplayed = false;
 
 function gameOver() {
   if (promptDisplayed) {
@@ -199,10 +193,9 @@ function gameOver() {
   if (restart) {
     location.reload(); // Recarrega a página para reiniciar o jogo
   } else {
-    window.location.href = "index.html"; // Redireciona para a página inicial do seu simulador de jogos
+    window.location.href = "index.html"; // Redireciona para a página inicial do simulador de jogos
   }
 }
-
 
 // Lock the tetromino in place
 function lockTetromino() {
@@ -223,7 +216,7 @@ function lockTetromino() {
     updateScore(rowsCleared)
   }
 
-  // Create a new tetromino
+  // Cria um novo tetromino
   // Current tetromino
   currentTetromino = randomTetromino();
 
@@ -233,7 +226,7 @@ function lockTetromino() {
 function clearRows() {
   let rowsCleared = 0;
 
-  // 아래에서부터 검사하면서 완전한 줄을 찾아서 지웁니다.
+  // Verifica de baixo para cima e apaga as linhas completamente preenchidas.
   for (let y = BOARD_HEIGHT - 1; y >= 0; y--) {
     let rowFilled = true;
 
@@ -245,8 +238,6 @@ function clearRows() {
     }
 
     if (rowFilled) {
-      breakSound.muted = false;
-      breakSound.play();
       rowsCleared++;
 
       for (let yy = y; yy > 0; yy--) {
@@ -299,7 +290,6 @@ function rotateTetromino() {
   }
 }
 
-
 // Move the tetromino
 function moveTetromino(direction) {
   let row = currentTetromino.row;
@@ -330,10 +320,8 @@ function moveTetromino(direction) {
       drawTetromino();
     } else {
       lockTetromino();
-      
     }
   }
-
 }
 
 drawTetromino();
@@ -367,9 +355,6 @@ function dropTetromino() {
   let row = currentTetromino.row;
   let col = currentTetromino.col;
 
-  drop.muted = false;
-  drop.play();
-
   while (canTetrominoMove(1, 0)) {
     eraseTetromino();
     row++;
@@ -379,4 +364,3 @@ function dropTetromino() {
   }
   lockTetromino();
 }
-
