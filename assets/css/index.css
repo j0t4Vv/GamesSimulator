@@ -6,7 +6,7 @@
 }
 
 body {
-  background: url("./assets/img/wallpaper.jpg");
+  background: url("/assets/css/img/wallpaper.jpg");
   display: flex;
   height: 100vh;
   width: 100vw;
